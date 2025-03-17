@@ -1,0 +1,214 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{parent()}} - Producto {% endblock %}
+
+{% block body %}
+	{{parent()}}
+	<!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>Biodegradable Y ECOLOGICO</p>
+						<h1>Nuestro Producto</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+		<!-- EMPIEZA SECCION DE DESCRIP DEL PRODUCTO -->
+		<div class="feature-bg2">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-7">
+						<div class="featured-text">
+							<h2 class="pb-3">Nuestro <span class="orange-text">Producto</span></h2>
+							<div class="row">
+								<div class="col-lg-6 col-md-6 mb-4 mb-md-5">
+									<div class="list-box d-flex">
+										<div class="list-icon">
+											<i class="bi bi-recycle"></i>
+										</div>
+										<div class="content">
+											<h3>Biodegradable</h3>
+											<p>Los popotes son biodegradables, lo que significa que se descomponen naturalmente en el medio ambiente.</p>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-6 col-md-6 mb-5 mb-md-5">
+									<div class="list-box d-flex">
+										<div class="list-icon">
+											<i class="bi bi-award-fill"></i>
+										</div>
+										<div class="content">
+											<h3>Nada de plástico</h3>
+											<p>Reducción del consumo de plástico derivado del petróleo.</p>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-6 col-md-6 mb-5 mb-md-5">
+									<div class="list-box d-flex">
+										<div class="list-icon">
+											<i class="bi bi-tree"></i>
+										</div>
+										<div class="content">
+											<h3>Sostenibilidad</h3>
+											<p>Contribución a la sostenibilidad al reducir la acumulación de residuos plásticos.</p>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-6 col-md-6 mb-5 mb-md-5">
+									<div class="list-box d-flex">
+										<div class="list-icon">
+											<i class="bi bi-graph-down-arrow"></i>
+										</div>
+										<div class="content">
+											<h3>Impacto ambiental</h3>
+											<p>Reducción del impacto ambiental al usar materiales que se descomponen más rápidamente y naturalmente.</p>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-6 col-md-6">
+									<div class="list-box d-flex">
+										<div class="list-icon">
+											<i class="fas fa-sync-alt"></i>
+										</div>
+										<div class="content">
+											<h3>Descomposición</h3>
+											<p>Después de sumergirlo en la bebida, tiene un tiempo de vida de 3 hrs</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- TERMINA SECCION DE DESCRIP DEL PRODUCTO -->
+
+	<!-- EMPIEZA SECCION DE PRODUCTO -->
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 offset-md-3 text-center">
+					<div class="single-product-item">
+						{% for producto in productos %}
+    							{% if producto.id == 7 %}
+        							<div class="product-image">
+            							<a href="{{ path('app_producto') }}">
+                							<img src="{{ asset('uploads/files/' ~ producto.photo) }}" alt="{{ producto.nombre }}">
+            							</a>
+        							</div>
+        								<h3>{{ producto.nombre }}</h3>
+        								<p class="product-price"><span>{{ producto.descripcion }}</span> {{ producto.precio }}$</p>
+        								<a href="{{ path('app_cart') }}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Añadir al carrito</a>
+    							{% endif %}
+							{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+
+	<!-- TERMINA SECCION DE PRODUCTO -->
+
+	<!-- EMPIEZA SECCION DE VENTAJAS -->
+	<div class="list-section pt-80 pb-80">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="section-title">	
+						<h3> Ventajas de nuestros <span class="orange-text">Popotes</span></h3>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+						<div class="list-box d-flex align-items-center">
+							<div class="list-icon">
+								<i class="bi bi-person-fill-gear"></i>
+							</div>
+							<div class="content">
+								<h3>Calidad del producto</h3>
+								<p> EMPMEX-ADA se destaca por la calidad en la fabricación de popotes a base de caseína, asegurando la satisfacción del cliente y su aceptación en el mercado.
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+						<div class="list-box d-flex align-items-center">
+							<div class="list-icon">
+								<i class="bi bi-cpu"></i>
+							</div>
+							<div class="content">
+								<h3>Innovación tecnológica</h3>
+								<p>Ofrece una alternativa sustentable única en el mercado, con popotes biodegradables que se desintegran en la bebida sin causar daños al medio ambiente.
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6">
+						<div class="list-box d-flex justify-content-start align-items-center">
+							<div class="list-icon">
+								<i class="bi bi-heart-fill"></i>
+							</div>
+							<div class="content">
+								<h3>Sostenibilidad ambiental</h3>
+								<p>La empresa demuestra compromiso con el medio ambiente utilizando materiales biodegradables, minimizando su huella de carbono y participando en campañas ambientales para promover el uso de sus productos.
+									</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row mt-4">
+					<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+						<div class="list-box d-flex align-items-center">
+							<div class="list-icon">
+								<i class="bi bi-person-arms-up"></i>
+							</div>
+							<div class="content">
+								<h3>Colaboracion con clientes y socios comerciales</h3>
+								<p>Se enfoca en una colaboración efectiva para entender las demandas del mercado y adaptar los productos según sea necesario, estableciendo estrategias con socios y tiendas distribuidoras para mantener la calidad y satisfacción del cliente.</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+						<div class="list-box d-flex align-items-center">
+							<div class="list-icon">
+								<i class="bi bi-shop"></i>
+							</div>
+							<div class="content">
+								<h3>Estrategia de marketing y comunicación</h3>
+								<p>EMPMEX-ADA utiliza estrategias de comunicación efectivas para resaltar los beneficios ambientales de sus productos, a través de redes sociales, volantes y anuncios publicitarios, destacando la innovación y sostenibilidad de los popotes biodegradables.</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6">
+						<div class="list-box d-flex justify-content-start align-items-center">
+							<div class="list-icon">
+								<i class="bi bi-info-circle"></i>
+							</div>
+							<div class="content">
+								<h3>Cumplimiento normativo</h3>
+								<p>La empresa se compromete a cumplir con todas las regulaciones y estándares ambientales y de seguridad, asegurando así la reputación y evitando problemas legales al seguir las normativas específicas en la fabricación de sus productos.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- TERMINA SECCION DE VENTAJAS -->
+
+	<!-- EMPIEZA BANNER DE DESCUENTO -->
+	<section class="shop-banner">
+    	<div class="container">
+        	<h3>En la compra de <br> 2 paquetes de popotes el <span class="orange-text">3cer paquete</span></h3>
+            <div class="sale-percent"><span>Tiene <br> un</span>20% <span>de descuento</span></div>
+            <a href="{{path('app_cart')}}" class="cart-btn btn-lg">Comprar ahora</a>
+        </div>
+    </section>
+	<!-- TERMINA BANNER DE DESCUENTO -->
+	
+{% endblock %}

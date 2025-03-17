@@ -1,0 +1,158 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} - Mis direcciones {% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    <!-- breadcrumb-section -->
+    <div class="breadcrumb-section breadcrumb-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <div class="breadcrumb-text">
+                        <p>Datos de domicilios</p>
+                        <h1>Tus domicilios</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end breadcrumb section -->
+
+    <!-- EMPIEZA APARTADO DE DOMICILIO -->
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-center">Direcciones</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group">
+                            {% for direccion in direcciones %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    {{ direccion.nombre }}: {{ direccion.calle }}, {{ direccion.ciudad }}, {{ direccion.pais }}
+                                    <div>
+                                        <button class="btn btn-primary btn-sm mr-2" onclick="openModal('editar', '{{ direccion.id }}')">Editar</button>
+                                        <form method="post" action="{{ path('app_direcciones_eliminar', {'id': direccion.id}) }}" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta direccion?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ direccion.id) }}">
+                                    <button class="btn btn-danger btn-sm">Eliminar</button>
+                                </form>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <button class="btn btn-primary btn-block mt-3" onclick="openModal('agregar')">Agregar Dirección</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- TERMINA APARTADO DE DOMICILIO -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="direccionModal" tabindex="-1" role="dialog" aria-labelledby="direccionModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="direccionModalLabel">Título del Modal</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="direccionForm">
+                        <input type="hidden" id="direccion_id" name="direccion_id">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="calle" class="form-label">Calle</label>
+                            <input type="text" class="form-control" id="calle" name="calle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="ciudad" class="form-label">Ciudad</label>
+                            <input type="text" class="form-control" id="ciudad" name="ciudad" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="estado" class="form-label">Estado</label>
+                            <input type="text" class="form-control" id="estado" name="estado" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cp" class="form-label">Código Postal</label>
+                            <input type="text" class="form-control" id="cp" name="cp" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="pais" class="form-label">País</label>
+                            <input type="text" class="form-control" id="pais" name="pais" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(accion, id = null) {
+            var modal = $('#direccionModal');
+            var titulo = modal.find('.modal-title');
+            var form = document.getElementById('direccionForm');
+            var eliminarBtn = $('#eliminarBtn');
+            var formAction = form.action;
+
+            if (accion === 'agregar') {
+                titulo.text('Agregar Dirección');
+                form.reset();
+                form.action = '/direcciones/crear';
+            } else if (accion === 'editar') {
+                titulo.text('Editar Dirección');
+                fetch(`/direcciones/${id}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        $('#direccion_id').val(id);
+                        $('#nombre').val(data.nombre);
+                        $('#calle').val(data.calle);
+                        $('#ciudad').val(data.ciudad);
+                        $('#estado').val(data.estado);
+                        $('#cp').val(data.cp);
+                        $('#pais').val(data.pais);
+                        form.action = `/direcciones/${id}/editar`;
+                    });
+            } else if (accion === 'eliminar') {
+                titulo.text('Eliminar Dirección');
+                $('#direccion_id').val(id);
+                form.innerHTML = `<p>¿Estás seguro de que deseas eliminar esta dirección?</p>`;
+                eliminarBtn.show();
+                form.action = `/direcciones/${id}/eliminar`;
+            }
+
+            modal.modal('show');
+        }
+
+        document.getElementById('direccionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var form = new FormData(this);
+            var url = this.action;
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify(Object.fromEntries(form.entries()))
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    location.reload();
+                } else {
+                    alert('Error al guardar la dirección');
+                }
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %} {{parent()}} - Inicio admin {% endblock %}
+
+{% block body %}
+{{parent()}}
+
+<!-- breadcrumb-section -->
+<div class="breadcrumb-section breadcrumb-bg">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 offset-lg-2 text-center">
+				<div class="breadcrumb-text">
+					<p>Bienvenido admin</p>
+					<h1>Ingresa a la información que desees</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end breadcrumb section -->
+
+
+<!-- EMPIEZA SECCION DE APARTADOS -->
+<div class="config-perfil mb-150 mt-5"> 
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center">Apartados</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Ventas
+                            <a href="{{path('app_admin_compras')}}" class="btn btn-primary btn-sm"><i class="fas fa-arrow-right"></i></a>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Productos
+                            <a href="{{path('app_add_categorias')}}" class="btn btn-primary btn-sm"><i class="fas fa-arrow-right"></i></a>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Categorías
+                            <a href="{{path('app_add_productos')}}" class="btn btn-primary btn-sm"><i class="fas fa-arrow-right"></i></a>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Sorteo mensual
+                            <a href="{{path('app_sorteo')}}" class="btn btn-primary btn-sm"><i class="fas fa-arrow-right"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- TERMINA SECCION DE APARTADOS -->
+
+
+{% endblock %}

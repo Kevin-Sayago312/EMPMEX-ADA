@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{parent()}} - Mis tarjetas {% endblock %}
+
+{% block body %}
+{{parent()}}
+
+<!-- breadcrumb-section -->
+<div class="breadcrumb-section breadcrumb-bg">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 offset-lg-2 text-center">
+				<div class="breadcrumb-text">
+					<p>Tu perfil</p>
+					<h1>Tus compras</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end breadcrumb section -->
+
+<!-- EMPIEZA APARTADO DE COMPRAS -->
+<div class="container config-perfil ">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center">Tarjetas</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Visa - Terminación: 1234
+                            <div>
+                                <button class="btn btn-primary btn-sm mr-2">Editar</button>
+                                <button class="btn btn-danger btn-sm">Eliminar</button>
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            MasterCard - Terminación: 5678
+                            <div>
+                                <button class="btn btn-primary btn-sm mr-2">Editar</button>
+                                <button class="btn btn-danger btn-sm">Eliminar</button>
+                            </div>
+                        </li>
+                    </ul>
+                    <button class="btn btn-primary btn-block mt-3">Agregar Tarjeta</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- TERMINA APARTADO DE COMPRAS -->
+
+{% endblock %}

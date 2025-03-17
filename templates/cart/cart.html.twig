@@ -1,0 +1,206 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} - Carrito {% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    <!-- breadcrumb-section -->
+    <div class="breadcrumb-section breadcrumb-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <div class="breadcrumb-text">
+                        <p>Biodegradable Y ECOLOGICO</p>
+                        <h1>Carrito</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end breadcrumb section -->
+
+    <!-- cart -->
+    <div class="cart-section mt-150 mb-150">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-12">
+                    <div class="cart-table-wrap">
+                        <table class="cart-table table table-bordered table-hover">
+                            <thead class="thead-light">
+                                <tr class="table-head-row">
+                                    <th class="product-remove"></th>
+                                    <th class="product-image">Imagen del producto</th>
+                                    <th class="product-name">Nombre</th>
+                                    <th class="product-price">Precio</th>
+                                    <th class="product-quantity">Cantidad</th>
+                                    <th class="product-subtotal">Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cart-body">
+                                {% for carrito in carritos %}
+                                    {% if carrito.user == app.user %}
+                                        <tr class="table-body-row" data-product-id="{{ carrito.productos.id }}">
+                                            <td class="product-remove">
+                                                <form method="POST" action="{{ path('app_cart_eliminar', {'id': carrito.id}) }}" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este carrito?');">
+                                                    <input type="hidden" name="_method" value="POST">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ carrito.id) }}">
+                                                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                                </form>
+                                                <button type="button" class="btn btn-warning btn-sm mt-2 edit-button" data-toggle="modal" data-target="#cantidadeditar" data-id="{{ carrito.id }}" data-cantidad="{{ carrito.cantidad }}">Editar cantidad</button>
+
+                                                <!-- Modal para editar producto -->
+                                                <div class="modal fade" id="cantidadeditar" tabindex="-1" role="dialog" aria-labelledby="cantidadeditarLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="cantidadeditarLabel">Editar cantidad</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <!-- Formulario -->
+                                                                <form id="cantidadFormEdit" method="post">
+                                                                    <input type="hidden" id="carritoId" name="id">
+                                                                    <div class="form-group">
+                                                                        <label for="cantidad">Cantidad:</label>
+                                                                        <input type="number" class="form-control" id="cantidad" name="cantidad" required>
+                                                                    </div>
+                                                                    <button type="submit" class="btn btn-primary">Cambiar cantidad</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="product-image"><img src="{{ asset('uploads/files/' ~ carrito.productos.photo) }}" alt="{{ carrito.productos.nombre }}"></td>
+                                            <td class="product-name">{{ carrito.productos.nombre }}</td>
+                                            <td class="product-price">${{ carrito.productos.precio }}</td>
+                                            <td class="quantity-input">{{ carrito.cantidad }}</td>
+                                            <td class="product-subtotal">${{ carrito.productos.precio * carrito.cantidad }}</td>
+
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                <div class="total-section">
+                    <table  class="total-table table table-bordered table-hover">
+                        <thead class="thead-light">
+                            <tr class="table-total-row">
+                                <th>Productos</th>
+                                <th>Precios</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cart-body">
+                            {% set total = 0 %}
+                            {% for carrito in carritos %}
+                                {% if carrito.user.id == app.user.id %}
+                                    <tr class="table-body-row" data-product-id="{{ carrito.id }}">
+                                        <td class="product-name">{{ carrito.productos.nombre }}</td>
+                                        <td class="product-subtotal text-right">${{ carrito.subtotal }}</td>
+                                        {% set total = total + (carrito.productos.precio * carrito.cantidad) %}
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                            <tr class="total-data">
+                                <td class="text-right font-weight-bold"><strong>Total: </strong></td>
+                                <td id="cart-subtotal" class="text-right font-weight-bold">${{ total }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="cart-buttons">
+<form action="{{ path('app_cart_checkout') }}" method="POST">
+    <input type="hidden" name="cart_items" value="{{ carritos|json_encode }}">
+<button type="submit" class="btn btn-success">Comprar</button>
+</form>
+
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    <!-- end cart -->
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $('#cantidadeditar').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var id = button.data('id');
+            var cantidad = button.data('cantidad');
+
+            var modal = $(this);
+            var form = modal.find('#cantidadFormEdit');
+            form.attr('action', '{{ path("app_cart_update", {"id": "ID_REPLACE"}) }}'.replace('ID_REPLACE', id));
+            modal.find('#carritoId').val(id);
+            modal.find('#cantidad').val(cantidad);
+        });
+
+        function calculateDiscounts() {
+            var cartBody = document.getElementById('cart-body');
+            var rows = cartBody.querySelectorAll('.table-body-row');
+            var productCounts = {};
+            var productPrices = {};
+            var total = 0;
+            var totalDiscount = 0;
+
+            // Primero, contamos las cantidades de cada producto
+            rows.forEach(function(row) {
+                var productId = row.getAttribute('data-product-id');
+                var price = parseFloat(row.querySelector('.product-price').innerText.replace('$', ''));
+                var quantity = parseInt(row.querySelector('.quantity-input').innerText);
+
+                if (!productCounts[productId]) {
+                    productCounts[productId] = 0;
+                    productPrices[productId] = price;
+                }
+
+                productCounts[productId] += quantity;
+            });
+
+            // Ahora, aplicamos los descuentos y calculamos el total
+            rows.forEach(function(row) {
+                var productId = row.getAttribute('data-product-id');
+                var priceCell = row.querySelector('.product-price');
+                var subtotalCell = row.querySelector('.product-subtotal');
+                var quantity = parseInt(row.querySelector('.quantity-input').innerText);
+                var price = productPrices[productId];
+                var subtotal = price * quantity;
+                var discount = 0;
+
+                if (productCounts[productId] >= 3) {
+                    // Calcular el descuento para múltiplos de 3
+                    var discountItems = Math.floor(productCounts[productId] / 3);
+                    discount = discountItems * price * 0.2;
+                    subtotal -= discount;
+                }
+
+                priceCell.innerText = `$${price.toFixed(2)}`;
+                subtotalCell.innerText = `$${subtotal.toFixed(2)}`;
+
+                total += subtotal;
+                totalDiscount += discount;
+            });
+
+            var totalCell = document.getElementById('cart-subtotal');
+            totalCell.innerText = `$${total.toFixed(2)}`;
+
+            totalCell.parentElement.insertBefore(discountRow, totalCell.parentElement.lastChild);
+
+            var finalTotal = total;
+            totalCell.innerText = `$${finalTotal.toFixed(2)}`;
+        }
+
+        window.onload = function() {
+            calculateDiscounts();
+        };
+    </script>
+{% endblock %}

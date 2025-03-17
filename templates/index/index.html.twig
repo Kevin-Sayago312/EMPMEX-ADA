@@ -1,0 +1,512 @@
+{% extends 'base_index.html.twig' %}
+
+{% block title %} {{ parent() }} - Inicio{% endblock %}
+
+{% block body %}
+	{{parent()}}
+	<!-- EMPIEZA CARRUSEL DE IMAGENES -->
+	<div class="homepage-slider">
+		<!-- single home slider -->
+		<div class="single-homepage-slider homepage-bg-1">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 col-lg-7 offset-lg-1 offset-xl-0">
+						<div class="hero-text">
+							<div class="hero-text-tablecell">
+								<p class="subtitle">Biodegradable & ecológico</p>
+								<h1>Popotes a base de caseína</h1>
+								<div class="hero-btns">
+									<a href="{{path('app_producto')}}" class="boxed-btn">Ver producto</a>
+									<a href="{{path('app_contact')}}" class="bordered-btn">Contáctanos</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- single home slider -->
+		<div class="single-homepage-slider homepage-bg-2">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-10 offset-lg-1 text-center">
+						<div class="hero-text">
+							<div class="hero-text-tablecell">
+								<p class="subtitle">Se parte del cambio ecológico</p>
+								<h1>Un pequeño cambio, un gran impacto</h1>
+								<div class="hero-btns">
+									<a href="{{path('app_shop')}}" class="boxed-btn">Visitar tienda</a>
+									<a href="{{path('app_contact')}}" class="bordered-btn">Contáctanos</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- single home slider -->
+		<div class="single-homepage-slider homepage-bg-3">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-10 offset-lg-1 text-right">
+						<div class="hero-text">
+							<div class="hero-text-tablecell">
+								<p class="subtitle">¡Participa en varios sorteos!</p>
+								<h1>Con cada compra acumulas 1 ticket para un sorteo mensual</h1>
+								<div class="hero-btns">
+									<a href="{{path('app_shop')}}" class="boxed-btn">Visitar tienda</a>
+									<a href="{{path('app_contact')}}" class="bordered-btn">Contáctanos</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- TERMINA CARRUSEL DE IMAGENES -->
+
+	<!-- EMPIEZA CARACTERISTICAS DEL ENVIO -->
+	<div class="list-section pt-80 pb-80">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+					<div class="list-box d-flex align-items-center">
+						<div class="list-icon">
+							<i class="fas fa-shipping-fast"></i>
+						</div>
+						<div class="content">
+							<h3>Envío gratis</h3>
+							<p>Cuando la compra sea de 10 paquetes de popotes</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+					<div class="list-box d-flex align-items-center">
+						<div class="list-icon">
+							<i class="fas fa-phone-volume"></i>
+						</div>
+						<div class="content">
+							<h3>Atención al cliente 24/7</h3>
+							<p>¡Tienes atención al cliente todo el tiempo!</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<div class="list-box d-flex justify-content-start align-items-center">
+						<div class="list-icon">
+							<i class="fas fa-sync"></i>
+						</div>
+						<div class="content">
+							<h3>Reembolso</h3>
+							<p>¡Obtenga un reembolso dentro de 5 días!</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- TERMINA CARACTERISTICAS DEL ENVIO -->
+
+	
+
+	<!-- EMPIEZA SECCION DEL VIDEO Y QUIENES SOMOS-->
+	<div class="abt-section mb-150 mt-4">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-12">
+					<div class="abt-bg">
+						<a href="https://www.youtube.com/watch?v=DBLlFWYcIGQ" class="video-play-btn popup-youtube"><i class="fas fa-play"></i></a>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-12">
+					<div class="abt-text">
+						<p class="top-sub">Desde el año 2023</p>
+						<h2>Nosotros somos <span class="orange-text">EMPMEX-ADA</span></h2>
+						<p>En EMPMEX-ADA nos dedicamos a la fabricación de productos 100 %
+							biodegradables, con el firme compromiso de preservar el medio ambiente y
+							promover un futuro más sostenible. Creando un mundo donde la innovación y la
+							responsabilidad ambiental se unan. 
+						</p>
+						<a href="{{path('app_about')}}" class="boxed-btn mt-4">Conócenos más</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- TERMINA SECCION DEL VIDEO Y QUIENES SOMOS-->
+
+	<!-- EMPIEZA SECCION DE VISION -->
+	<div class="product-section mt-150 mb-150">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="section-title">	
+						<h3> Nuestra <span class="orange-text">Visión</span></h3>
+						<p>Ser una empresa competitiva, dinámica e innovadora, reconocida a nivel global por
+							nuestra innovación, calidad y compromiso con la sostenibilidad y la sustentabilidad,
+							para así fomentar la adopción general de productos biodegradables como una forma
+							efectiva de combatir la contaminación que existe en el planeta.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- TERMINA SECCION DE VISION -->
+
+	<!-- EMPIEZA SECCION DE VALORES -->
+	<div class="list-section pt-80 pb-80">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="section-title">	
+						<h3> Nuestros <span class="orange-text">Valores</span></h3>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+						<div class="list-box d-flex align-items-center">
+							<div class="list-icon">
+								<i class="bi bi-person-fill-gear"></i>
+							</div>
+							<div class="content">
+								<h3>Responsabilidad</h3>
+								<p>Cumplimiento a nuestras obligaciones y somos cuidadoso al
+									momento de fabricar nuestros productos.
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+						<div class="list-box d-flex align-items-center">
+							<div class="list-icon">
+								<i class="bi bi-link-45deg"></i>
+							</div>
+							<div class="content">
+								<h3>Lealtad</h3>
+								<p>Entre nuestros empleados, clientes y socios comerciales creando
+									relaciones duraderas basadas en la confianza y el compromiso mutuo.
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6">
+						<div class="list-box d-flex justify-content-start align-items-center">
+							<div class="list-icon">
+								<i class="bi bi-heart-fill"></i>
+							</div>
+							<div class="content">
+								<h3>Amor</h3>
+								<p>Profundo amor por el medio ambiente y la salud del planeta.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row mt-4">
+					<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+						<div class="list-box d-flex align-items-center">
+							<div class="list-icon">
+								<i class="bi bi-journal-text"></i>
+							</div>
+							<div class="content">
+								<h3>Trabajo en equipo</h3>
+								<p>Sumamos logros, creamos ideas, reconocemos esfuerzos.
+									Solidaridad: solidarios con la comunidad y el medio ambiente.</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+						<div class="list-box d-flex align-items-center">
+							<div class="list-icon">
+								<i class="bi bi-person-fill-lock"></i>
+							</div>
+							<div class="content">
+								<h3>Solidaridad</h3>
+								<p>Solidarios con la comunidad y el medio ambiente.</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6">
+						<div class="list-box d-flex justify-content-start align-items-center">
+							<div class="list-icon">
+								<i class="bi bi-person-raised-hand"></i>
+							</div>
+							<div class="content">
+								<h3>Honestidad</h3>
+								<p>Transparentes en nuestras acciones y comunicaciones, altos
+									estándares éticos en todo momento.</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6 mb-4 mb-lg-0 mt-4">
+						<div class="list-box d-flex align-items-center">
+							<div class="list-icon">
+								<i class="bi bi-gear"></i>
+							</div>
+							<div class="content">
+								<h3>Perseverancia</h3>
+								<p>Reconociendo los desafíos inherentes, superar obstáculos, seguir
+									adelante con determinación en la búsqueda de un futuro más sostenible.</p>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- TERMINA SECCION DE VALORES -->
+
+	<!-- EMPIEZA PRODUCTO -->
+    <div class="product-section mt-150 mb-150">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <div class="section-title">
+                        <h3>Nuestro <span class="orange-text">Producto</span></h3>
+                        <p>Nuestros popotes están fabricados con materiales que se descomponen de manera
+                            natural en el medio ambiente.
+                        </p>
+                        <p>
+                            Nuestro producto a
+                            comparación de los popotes convencionales después de sumergirlo en la debida
+                            tiene un tiempo de vida de 3 hrs
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 offset-md-3 text-center">
+                        <div class="single-product-item">
+
+                           {% for producto in productos %}
+    {% if producto.id == 7 %}
+        <div class="product-image">
+            <a href="{{ path('app_producto') }}">
+                <img src="{{ asset('uploads/files/' ~ producto.photo) }}" alt="{{ producto.nombre }}">
+            </a>
+        </div>
+        <h3>{{ producto.nombre }}</h3>
+        <p class="product-price"><span>{{ producto.descripcion }}</span> ${{ producto.precio }}</p>
+        <!-- Añadir al carrito -->
+        <a href="#" class="cart-btn add-to-cart" data-product-id="{{ producto.id }}" data-cantidad="1">
+            <i class="fas fa-shopping-cart"></i> Añadir al carrito
+        </a>
+
+        <!-- Formulario oculto -->
+        <form id="add-to-cart-form" method="POST" action="{{ path('app_cart_add') }}" style="display: none;">
+            <input type="hidden" name="producto_id" id="add-to-cart-product-id">
+            <input type="hidden" name="cantidad" id="add-to-cart-cantidad">
+        </form>
+        <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.add-to-cart').forEach(function (link) {
+                link.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    var productId = this.dataset.productId;
+                    var cantidad = this.dataset.cantidad;
+
+                    var form = document.getElementById('add-to-cart-form');
+                    document.getElementById('add-to-cart-product-id').value = productId;
+                    document.getElementById('add-to-cart-cantidad').value = cantidad;
+
+                    form.submit();
+                });
+            });
+        });
+        </script>
+    {% endif %}
+{% endfor %}
+
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <!-- TERMINA PRODUCTO -->
+
+	<!-- EMPIEZA BANNER DE PROMOCION Y DESCUENTO -->
+<section class="cart-banner pt-100 pb-100">
+    <div class="container">
+        <div class="row clearfix">
+            <!--Image Column-->
+            <div class="image-column col-lg-6">
+                <div class="image">
+                    <div class="price-box">
+                        <div class="inner-price">
+                            <span class="price">
+                                <strong>Premio</strong> <br> del mes
+                            </span>
+                        </div>
+                    </div>
+                    {% for sorteo in sorteos %}
+                        {% if sorteo.id == 1 %}
+								<div class="product-image">
+            							<img src="{{ asset('uploads/files/' ~ sorteo.photo) }}" alt="{{ sorteo.nombre }}" >
+        							</div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <!--Content Column-->
+            <div class="content-column col-lg-6">
+                <h3><span class="orange-text">Sorteo</span> del mes</h3>
+                <h4>¡Participa y gana!</h4>
+				{% for sorteo in sorteos %}
+                    {% if sorteo.id == 1 %}
+                        <h2>{{ sorteo.nombre }}</h2>
+                    {% endif %}
+                {% endfor %}
+                <div class="text">Con cada compra acumulas 1 ticket para un sorteo mensual</div>
+                <!--TEMPORIZADOR -->
+                <div class="time-counter">
+                    <div class="time-countdown clearfix">
+                        <div class="counter-column">
+                            <div class="inner">
+                                <div class="dias count" id="dias">
+                                    00
+                                </div>
+                                <p>DÍAS</p>
+                            </div>
+                        </div>
+                        <div class="counter-column">
+                            <div class="inner">
+                                <div class="horas count" id="horas">
+                                    --
+                                </div>
+                                <p>HORAS</p>
+                            </div>
+                        </div>
+                        <div class="counter-column">
+                            <div class="inner">
+                                <div class="minutos count" id="minutos">
+                                    --
+                                </div>
+                                <p>MINUTOS</p>
+                            </div>
+                        </div>
+                        <div class="counter-column">
+                            <div class="inner">
+                                <div class="segundos count" id="segundos">
+                                    --
+                                </div>
+                                <p>SEGUNDOS</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                {% for producto in productos %}
+    {% if producto.id == 7 %}
+        <a href="#" class="cart-btn add-to-cart" data-product-id="{{ producto.id }}" data-cantidad="1">
+            <i class="fas fa-shopping-cart"></i> Participar
+        </a>
+
+        <!-- Formulario oculto -->
+        <form id="add-to-cart-form" method="POST" action="{{ path('app_cart_add') }}" style="display: none;">
+            <input type="hidden" name="producto_id" id="add-to-cart-product-id">
+            <input type="hidden" name="cantidad" id="add-to-cart-cantidad">
+        </form>
+        <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.add-to-cart').forEach(function (link) {
+                link.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    var productId = this.dataset.productId;
+                    var cantidad = this.dataset.cantidad;
+
+                    var form = document.getElementById('add-to-cart-form');
+                    document.getElementById('add-to-cart-product-id').value = productId;
+                    document.getElementById('add-to-cart-cantidad').value = cantidad;
+
+                    form.submit();
+                });
+            });
+        });
+        </script>
+    {% endif %}
+{% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+<!-- TERMINA BANNER DE PROMOCION Y DESCUENTO -->
+
+
+	<!-- SECCION DE TESTIMONIOS -->
+<!-- SECCION DE TESTIMONIOS -->
+<div class="testimonail-section mt-150 mb-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1 text-center">
+                <div class="testimonial-sliders">
+                    {% for user in users %}
+                        <div class="single-testimonial-slider">
+                            <div class="client-avater">
+                                <!-- Aquí puedes mostrar la imagen del cliente si la tienes -->
+                                <img src="{{ user.photo }}" alt="Avatar de {{ user.nombre }}" style="max-width: 50px; max-height: 50px;" />
+                            </div>
+                            <div class="client-meta">
+                                <h3>{{ user.nombre }}</h3>
+                                <p class="testimonial-body">
+                                    {{ user.descripcion }}
+                                </p>
+                                <div class="last-icon">
+                                    <i class="fas fa-quote-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- TERMINA SECCION DE TESTIMONIOS -->
+	
+	<!-- EMPIEZA BANNER DE DESCUENTO -->
+	<section class="shop-banner">
+    	<div class="container">
+        	<h3>En la compra de <br> 2 paquetes de popotes el <span class="orange-text">3cer paquete</span></h3>
+            <div class="sale-percent"><span>Tiene <br> un</span>20% <span>de descuento</span></div>
+            {% for producto in productos %}
+    {% if producto.id == 7 %}
+        <a href="#" class="cart-btn add-to-cart" data-product-id="{{ producto.id }}" data-cantidad="3">
+            <i class="fas fa-shopping-cart"></i> Comprar ahora
+        </a>
+
+        <!-- Formulario oculto -->
+        <form id="add-to-cart-form" method="POST" action="{{ path('app_cart_add') }}" style="display: none;">
+            <input type="hidden" name="producto_id" id="add-to-cart-product-id">
+            <input type="hidden" name="cantidad" id="add-to-cart-cantidad">
+        </form>
+        <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.add-to-cart').forEach(function (link) {
+                link.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    var productId = this.dataset.productId;
+                    var cantidad = this.dataset.cantidad;
+
+                    var form = document.getElementById('add-to-cart-form');
+                    document.getElementById('add-to-cart-product-id').value = productId;
+                    document.getElementById('add-to-cart-cantidad').value = cantidad;
+
+                    form.submit();
+                });
+            });
+        });
+        </script>
+    {% endif %}
+{% endfor %}
+        </div>
+    </section>
+	<!-- TERMINA BANNER DE DESCUENTO -->
+
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{parent()}} - Contáctanos {% endblock %}
+
+{% block body %}
+	{{parent()}}
+	
+	<!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>Obten Soporte las 24/7</p>
+						<h1>Contáctanos</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end breadcrumb section -->
+
+	<!-- INICIA FORMULARIO DE CONTACTANOS -->
+	<!-- contact form -->
+	<div class="contact-from-section mt-150 mb-150">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 mb-5 mb-lg-0">
+					<div class="form-title">
+						<h2>¿Tienes alguna duda?</h2>
+						<h3>Queremos Escucharte</h3>
+						<p>Si requieres información sobre cualquiera de nuestros productos o estás interesado en su distribución, rellena nuestro formulario y nos pondremos en contacto contigo lo antes posible.</p>
+					</div>
+					<!-- INICIA FORMULARIO -->
+				 	<div id="form_status"></div>
+					<div class="contact-form">
+						<form action="mail.php" method="POST" type="POST" id="fruitkha-contact" onSubmit="return valid_datas( this );">
+							<p>
+								<input type="text" placeholder="Nombre Completo" name="name" id="name">
+								<input type="email" placeholder="Correo Electrónico" name="email" id="email">
+							</p>
+							<p>
+								<input type="tel" placeholder="Teléfono" name="phone" id="phone">
+								<input type="text" placeholder="Asunto" name="subject" id="subject">
+							</p>
+							<p><textarea name="message" id="message" cols="30" rows="10" placeholder="Mensaje"></textarea></p>
+							<input type="hidden" name="token" value="FsWga4&@f6aw" />
+							<p><input type="submit" value="Enviar"></p>
+						</form>
+
+
+						
+					</div>
+				</div>
+				<!-- TERMINA FORMULARIO -->
+
+				<!-- INICIA DATOS CORTOS DE LA TIENDA -->
+				<div class="col-lg-4">
+					<div class="contact-form-wrap">
+						<div class="contact-form-box">
+							<h4><i class="fas fa-map"></i> Ubicación de la Tienda</h4>
+							<p>Av. Miguel Angel de Quevedo 2779 Formando Hogar 91897 <br> Veracruz, Ver.</p>
+						</div>
+						<div class="contact-form-box">
+							<h4><i class="far fa-clock"></i> Horarios</h4>
+							<p>LUNES - VIERNES: 8 a 9 PM <br> SABADO - DOMINGO: 10 a 8 PM </p>
+						</div>
+						<div class="contact-form-box">
+							<h4><i class="fas fa-address-book"></i> Contactos</h4>
+							<p>Teléfono: +00 111 222 3333 <br> Correo: support@EMPMEX-ADA.com</p>
+						</div>
+					</div>
+				</div>
+				<!-- TERMINA DATOS CORTOS DE LA TIENDA -->
+			</div>
+		</div>
+	</div>
+	<!-- end contact form -->
+	<!-- TERMINA EL FORMULARIO DE CONTACTANOS -->
+
+
+	<!-- BUSCA NUESTRA LOCALIZACION -->
+	<!-- find our location -->
+	<div class="find-location blue-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<p> <i class="fas fa-map-marker-alt"></i> Encuentra Nuestra Ubicación</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end find our location -->
+	<!-- TERMINA BUSCA NUESTRA LOCALIZACION -->
+
+	<!-- INICIA MAPA DE LOCALIZACION -->
+	<!-- google map section --> 
+	<div class="embed-responsive embed-responsive-21by9">
+		<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3767.884254342942!2d-96.16218192574495!3d19.200257148061787!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85c34419964cc761%3A0xa6d7c54363cf608e!2sTecNM%20-%20Campus%20Instituto%20Tecnol%C3%B3gico%20de%20Veracruz!5e0!3m2!1ses-419!2smx!4v1711554789846!5m2!1ses-419!2smx" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+	</div>
+	<!-- end google map section -->
+	<!-- TERMINA MAPA DE LOCALIZACION -->
+{% endblock %}

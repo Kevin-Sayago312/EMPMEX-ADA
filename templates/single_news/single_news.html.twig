@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} - Clientes satisfechos{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <!-- breadcrumb-section -->
+    <div class="breadcrumb-section breadcrumb-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <div class="breadcrumb-text">
+                        <p>Biodegradable Y ECOLOGICO</p>
+                        <h1>Clientes satisfechos</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end breadcrumb section -->
+    
+    <!-- single article section -->
+    <div class="mt-150 mb-150">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="single-article-section">
+                        <div class="single-article-text">
+                            <div class="single-artcile-bg"></div>
+                            <p class="blog-meta">
+                                <span class="author"><i class="fas fa-user"></i> Admin</span>
+                                <span class="date"><i class="fas fa-calendar"></i> 27 Marzo, 2024</span>
+                            </p>
+                            <h2>Popotes biodegradables</h2>
+                            <p class="justify-content">Este popote biodegradable reduce hasta un 60% los consumos de plástico derivado de petróleo sin necesidad de ser tratados de forma especial o de separarse para reciclaje y cuando se desintegra no tiene sabor, puede utilizarse para consumir una variedad de bebidas, tanto frías como calientes, y es capaz de mantener su integridad estructural durante el uso. Es fabricado con diferentes longitudes, grosores y estilos, adaptándose a las necesidades de diferentes consumidores y sectores</p>
+                        </div>
+                
+                        <div class="comments-list-wrap" id="comment-section">
+                            <h3 class="comment-count-title">Comentarios</h3>
+                            <div class="comment-list">
+                                <!-- Aquí se mostrarán los comentarios -->
+                            </div>
+                        </div>
+                
+                        <div class="comment-template">
+                            <h4>Deja tu comentario aquí</h4>
+                            <p>Si tienes algún comentario no dudes en enviarnos tu opinión..</p>
+                            <form id="comment-form">
+                                <input type="hidden" id="has-orders" value="{{ app.user and app.user.pedidos|length > 0 ? 'true' : 'false' }}">
+                                <p><textarea name="comment" id="comment" cols="30" rows="10" placeholder="Tu Mensaje" required></textarea></p>
+                                <p><input type="submit" value="Enviar"></p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- jQuery -->
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                <script>
+                $(document).ready(function() {
+                    // Función para mostrar los comentarios
+                    function displayComment(username, date, comment) {
+                        var commentHTML = `
+                            <div class="single-comment-body">
+                                <div class="comment-user-avater">
+                                    <img src="assets/img/avaters/avatar_new.png" alt="">
+                                </div>
+                                <div class="comment-text-body">
+                                    <h4>${username} <span class="comment-date">${date}</span></h4>
+                                    <p>${comment}</p>
+                                </div>
+                            </div>`;
+                        $('.comment-list').prepend(commentHTML);
+                    }
+                
+                    // Cuando se envíe el formulario
+                    $('#comment-form').submit(function(event) {
+                        event.preventDefault();
+                        var hasOrders = $('#has-orders').val() === 'true';
+                        
+                        if (!hasOrders) {
+                            alert('Necesitas tener al menos un pedido para dejar un comentario.');
+                            return;
+                        }
+
+                        var comment = $('#comment').val();
+                        var date = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+                        var csrfToken = '{{ csrf_token("nuevo_comentario") }}'; // Reemplaza con tu token CSRF si lo usas
+                        
+                        $.ajax({
+                            url: '{{ path("nuevo_comentario") }}',
+                            method: 'POST',
+                            data: {
+                                comment: comment,
+                                _csrf_token: csrfToken // Reemplaza con tu campo CSRF si es necesario
+                            },
+                            success: function(response) {
+                                displayComment('Usuario', date, comment); // Ajusta para obtener el nombre real del usuario
+                                $('#comment').val('');
+                            },
+                            error: function(xhr) {
+                                alert(xhr.responseJSON.error || 'Error al enviar el comentario.');
+                            }
+                        });
+                    });
+                });
+                </script>
+            </div>
+        </div>
+    </div>
+    <!-- end single article section -->
+{% endblock %}

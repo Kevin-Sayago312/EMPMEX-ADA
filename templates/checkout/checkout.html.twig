@@ -1,0 +1,137 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} - Domicilio y pago {% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    <!-- breadcrumb-section -->
+    <div class="breadcrumb-section breadcrumb-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <div class="breadcrumb-text">
+                        <p>Envío rápido y seguro</p>
+                        <h1>Datos de tu domicilio y pago</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end breadcrumb section -->
+
+    <!-- check out section -->
+    <div class="checkout-section mt-150 mb-150">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="checkout-accordion-wrap">
+                        <div class="accordion" id="accordionExample">
+                            <!-- Billing Address Form -->
+                            <div class="card single-accordion">
+                                <div class="card-header" id="headingOne">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            Dirección de Facturación
+                                        </button>
+                                    </h5>
+                                </div>
+
+                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="billing-address-form">
+                                            <form action="{{ path('handle_billing') }}" method="post">
+                                                <p><input type="text" name="name" placeholder="Nombre" required></p>
+                                                <p><input type="email" name="email" placeholder="Email" required></p>
+                                                <p><input type="text" name="address" placeholder="Dirección" required></p>
+                                                <p><input type="tel" name="phone" placeholder="Teléfono" required></p>
+                                                <p><textarea name="bill" id="bill" cols="30" rows="10" placeholder="Comentarios"></textarea></p>
+                                                <button type="submit" class="boxed-btn">Guardar dirección de facturación</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Shipping Address Form -->
+                            <div class="card single-accordion">
+                                <div class="card-header" id="headingTwo">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            Dirección de Envío
+                                        </button>
+                                    </h5>
+                                </div>
+                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="shipping-address-form">
+                                            <form action="{{ path('handle_shipping') }}" method="post">
+                                                <p><select name="direccion" required>
+   												 {% for direccion in direcciones %}
+        											<option value="{{ direccion.id }}">{{ direccion.getDetalles() }}</option>
+   												 {% endfor %}
+													</select></p>
+                                                <button type="submit" class="boxed-btn">Guardar dirección de envío</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="order-details-wrap">
+                        <table class="order-details">
+                            <thead>
+                                <tr>
+                                    <th>Detalles del Carrito</th>
+                                    <th>Precio</th>
+                                </tr>
+                            </thead>
+                            <tbody class="order-details-body">
+                                {% set total = 0 %}
+                                {% for carrito in carritos %}
+                                    {% if carrito.user.id == app.user.id %}
+                                        <tr class="table-body-row" data-product-id="{{ carrito.id }}">
+                                            <td class="product-name">{{ carrito.productos.nombre }}</td>
+                                            <td class="product-subtotal text-right">${{ carrito.subtotal }}</td>
+                                        </tr>
+                                        {% set total = total + carrito.subtotal %}
+                                    {% endif %}
+                                {% endfor %}
+                                <tr class="total-data">
+                                    <td class="text-right font-weight-bold"><strong>Total: </strong></td>
+                                    <td id="cart-subtotal" class="text-right font-weight-bold">${{ total }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div id="paypal-button-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end check out section -->
+
+    <script src="https://www.paypal.com/sdk/js?client-id=Ac_wvUWxMcZVqZTIP5RCB4ka_0PpbNteGVra5vGC2NereWNW82fFXtFdnHTB7YNGvE9tLfvjuf5sZoky&currency=MXN"></script>
+    <script>
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '{{ total }}'
+                        }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    // Redirect to your success page
+                    window.location.href = "{{ path('paypal_success') }}?orderID=" + data.orderID;
+                });
+            }
+        }).render('#paypal-button-container');
+    </script>
+{% endblock %}

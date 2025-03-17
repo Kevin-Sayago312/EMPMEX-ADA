@@ -1,0 +1,56 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %} {{parent()}} - Compras {% endblock %}
+
+{% block body %}
+{{parent()}}
+
+
+<!-- breadcrumb-section -->
+<div class="breadcrumb-section breadcrumb-bg">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 offset-lg-2 text-center">
+				<div class="breadcrumb-text">
+					<p>Todas las compras</p>
+					<h1>Compras de los clientes</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end breadcrumb section -->
+
+<!-- EMPIEZA APARTADO DE COMPRAS -->
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                <a href="{{path('app_admin')}}" class="btn btn-primary btn-sm float-left"><i class="fas fa-arrow-left"></i> Regresar</a>
+                    <h3 class="text-center">Compras</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Producto 1 - $50
+                            <button class="btn btn-primary btn-sm">Ver compra</button>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Producto 2 - $30
+                            <button class="btn btn-primary btn-sm">Ver compra</button>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Producto 3 - $20
+                            <button class="btn btn-primary btn-sm">Ver compra</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- TERMINA APARTADO DE COMPRAS -->
+
+
+{% endblock %}

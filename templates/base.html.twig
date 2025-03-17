@@ -2,16 +2,232 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+        <title>{% block title %}EMPMEX-ADA{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- ICONO DE LA PAGINA  -->
+        <link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
+        <!-- EMPIEZAN DIRECCIONES DE LOS CSS -->
+        {% block stylesheets %}
+        <!-- google font -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+	<!-- fontawesome -->
+	<link rel="stylesheet" href="assets/css/all.min.css">
+	<!-- bootstrap -->
+	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+	<!-- owl carousel -->
+	<link rel="stylesheet" href="assets/css/owl.carousel.css">
+	<!-- magnific popup -->
+	<link rel="stylesheet" href="assets/css/magnific-popup.css">
+	<!-- animate css -->
+	<link rel="stylesheet" href="assets/css/animate.css">
+	<!-- mean menu css -->
+	<link rel="stylesheet" href="assets/css/meanmenu.min.css">
+	<!-- main style -->
+	<link rel="stylesheet" href="assets/css/main.css">
+	<!-- responsive -->
+	<link rel="stylesheet" href="assets/css/responsive.css">
+	<!-- iconos de bootstrap -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+	<!-- CSS DE BOLA FLOTANTE -->
+	<link rel="stylesheet" href="assets/css/bola_flotante.css">
+	<!-- CSS DE APARTADO PARA MI PERFIL -->
+    <link rel="stylesheet" href="assets/css/styles2.css">
         {% endblock %}
+        <!-- TERMINAN DIRECCIONES DE LOS CSS -->
+
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {% block body %}
+        <!--EMPIEZA LA PRE RECARGA DE LA PAGINA-->
+    <div class="loader">
+        <div class="loader-inner">
+            <div class="circle"></div>
+        </div>
+    </div>
+    <!--TERMINA LA PRE RECARGA DE LA PAGINA-->
+	
+	<!-- EMPIEZA HEADER -->
+	<div class="top-header-area" id="sticker">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-sm-12 text-center">
+					<div class="main-menu-wrap">
+						<!-- logo -->
+						<div class="site-logo">
+							<a href="{{path('app_index')}}">
+								<img src="assets/img/logo.png" alt="">
+							</a>
+						</div>
+						<!-- logo -->
+
+						<!-- menu start -->
+						<nav class="main-menu">
+							<ul>
+								<li class="current-list-item"><a href="{{path('app_index')}}">Inicio</a>
+								</li>
+								<li><a href="{{path('app_about')}}">Nosotros</a>
+								<!--<ul class="sub-menu">
+									<li><a href="contact.html">Contáctanos</a></li>
+								</ul>-->
+							</li>
+								<li><a href="{{path('app_historia')}}">Historia</a>
+								</li>
+								<li><a href="{{path('app_producto')}}">Nuestro producto</a>
+									<ul class="sub-menu">
+									<li><a href="{{path('app_shop')}}">Tienda</a></li>
+									</ul>
+								</li>
+								<li><a href="{{path('app_single_news')}}">Clientes satisfechos</a></li>
+								<li>
+									<a href="{{path('app_contact')}}">Contáctanos</a>
+								</li>
+								<li>
+									<div class="header-icons">
+										<li>
+										{% if app.user %}
+											<a href="{{path('app_login')}}" class="my-auto">
+												Mi Perfil
+											</a>
+											<ul class="sub-menu">
+												<img src="{{ app.user.photo }}" alt="Foto de perfil" style="max-width: 50px; max-height: 50px;" />
+												<li><a href="{{path('app_perfil_usuario')}}">Mi perfil</a></li>
+												<li><a href="{{ path('app_logout') }}">Cerrar sesion</a></li>
+											</ul>
+										{% else %}
+										<li>
+											<a href="{{path('app_login')}}" class="my-auto">
+												Iniciar Sesion
+											</a>
+										{% endif %}
+											<li>
+												<a class="shopping-cart" href="{{path('app_cart')}}">
+													<i class="fas fa-shopping-cart"></i>
+												</a>
+											</li>
+										<!-- CODIGO PARA PONER UN ICONO DE BUSQUEDA -->
+										<!--<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a> -->
+									</div>
+								</li>
+							</ul>
+						</nav>
+						<!-- menu end -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- TERMINA HEADER -->
+	
+    <!-- EMPIEZA BOLA FLOTANTE DE REDES SOCIALES -->
+	<div class="container-2">
+        <input type="checkbox" id="btn-mas">
+        <div class="redes">
+            <a href="https://www.facebook.com/people/Empmex-ada/61557956704266/?mibextid=ZbWKwL"><i class="bi bi-facebook"></i></a>
+        </div>
+        <div class="btn-mas">
+            <label for="btn-mas" class="icon-mas2"><i class="bi bi-plus"></i></label>
+        </div>
+    </div>
+	<!-- TERMINA BOLA FLOTANTE DE REDES SOCIALES -->
+        {% endblock %}
+
+		{% block footer %}
+		<!-- EMPIEZA FOOTER -->
+	<div class="footer-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box about-widget">
+						<h2 class="widget-title">Acerca de Nosotros</h2>
+						<p>En EMPMEX-ADA nos dedicamos a la fabricación de productos 100 % biodegradables, con el firme compromiso de preservar el medio ambiente y promover un futuro más sostenible. Creando un mundo donde la innovación y la responsabilidad ambiental se unan.
+						</p>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box get-in-touch">
+						<h2 class="widget-title">Encuentranos en</h2>
+						<ul>
+							<li>Veracruz</li>
+							<li>support@correo.com</li>
+							<li>(+52) 000-000-000</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box pages">
+						<h2 class="widget-title">Apartados</h2>
+						<ul>
+							<li><a href="{{path('app_index')}}">Inicio</a></li>
+							<li><a href="{{path('app_about')}}">Acerca de nosotros</a></li>
+							<li><a href="{{path('app_shop')}}">Tienda</a></li>
+							<li><a href="{{path('app_contact')}}">Contácto</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box subscribe">
+						<h2 class="widget-title">¡Regístrate!</h2>
+						<p>Regístrate con tu correo electrónico y recibe notificaciones</p>
+						<form action="#">
+							<input type="email" placeholder="Email">
+							<button type="submit"><i class="fas fa-paper-plane"></i></button>
+						</form>
+						<p class="mt-4">Aceptamos todas tus tarjetas</p>
+                            <img src="assets/img/payment.png" class="img-fluid" alt="">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- TERMINA FOOTER -->
+	
+	<!-- EMPIEZA copyright -->
+	<div class="copyright">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-12">
+					<p>Copyrights &copy; 2024 - <a href="{{path('app_index')}}"> EMPMEX-ADA</a>,  Todos los derechos reservados.<br>
+					</p>
+				</div>
+				<div class="col-lg-6 text-right col-md-12">
+					<div class="social-icons">
+						<ul>
+							<li><a href="https://www.facebook.com/people/Empmex-ada/61557956704266/?mibextid=ZbWKwL" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+							
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- TERMINA copyright -->
+		{% endblock %}
+
+		<!-- EMPIEZA DIRECCIONES DE LOS SCRIPTS -->
+        {% block javascripts %}
+        <!-- jquery -->
+	<script src="assets/js/jquery-1.11.3.min.js"></script>
+	<!-- bootstrap -->
+	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	<!-- count down -->
+	<script src="assets/js/jquery.countdown.js"></script>
+	<!-- isotope -->
+	<script src="assets/js/jquery.isotope-3.0.6.min.js"></script>
+	<!-- waypoints -->
+	<script src="assets/js/waypoints.js"></script>
+	<!-- owl carousel -->
+	<script src="assets/js/owl.carousel.min.js"></script>
+	<!-- magnific popup -->
+	<script src="assets/js/jquery.magnific-popup.min.js"></script>
+	<!-- mean menu -->
+	<script src="assets/js/jquery.meanmenu.min.js"></script>
+	<!-- sticker js -->
+	<script src="assets/js/sticker.js"></script>
+	<!-- main js -->
+	<script src="assets/js/main.js"></script>
+        {% endblock %}
+        <!-- TERMINAN DIRECCIONES DE LOS SCRIPTS -->
     </body>
 </html>

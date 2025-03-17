@@ -1,0 +1,140 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %} {{ parent() }} - Administrador {% endblock %}
+
+{% block body %}
+{{ parent() }}
+<!-- breadcrumb-section -->
+<div class="breadcrumb-section breadcrumb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="breadcrumb-text">
+                    <p>Administra las categorías que desees</p>
+                    <h1>Categorías</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end breadcrumb section -->
+
+<!-- EMPIEZA APARTADO DE ADMIN -->
+<div class="col-lg-10 mx-auto text-center mb-5">
+    <div class="container mt-4">
+        <div id="productos" class="mt-4">
+            <div class="row mt-4">
+                <div class="col">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12">
+                                    <a href="{{path('app_admin')}}" class="btn btn-primary btn-sm float-left"><i class="fas fa-arrow-left"></i> Regresar</a>
+                                </div>
+                            </div>
+                        </div>
+                    <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#productoModal">Agregar categoria</button>
+                </div>
+            </div>
+            <div class="table-responsive text-center">
+                <table class="table table-bordered">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Categoría</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for categoria in categorias %}
+                            <tr>
+                                <td>{{ categoria.id }}</td>
+                                <td>{{ categoria.categoria }}</td>
+                                <td>
+                                <form method="post" action="{{ path('app_categoria_delete', {'id': categoria.id}) }}" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta categoría?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ categoria.id) }}">
+                                    <button class="btn btn-danger btn-sm">Eliminar</button>
+                                </form>
+                                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#productoeditar" data-id="{{ categoria.id }}" data-nombre="{{ categoria.categoria }}">Editar</button>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="6" class="text-center">No se encontraron categorias</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<!-- Modal para agregar producto -->
+<div class="modal fade" id="productoModal" tabindex="-1" role="dialog" aria-labelledby="productoModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productoModalLabel">Agregar Nueva Categoría</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulario -->
+                <form id="productoForm" action="{{ path('registrar_categoria') }}" method="post">
+                    <div class="form-group">
+                        <label for="categoria">Nombre:</label>
+                        <input type="text" class="form-control" id="categoria" name="categoria" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para editar producto -->
+<div class="modal fade" id="productoeditar" tabindex="-1" role="dialog" aria-labelledby="productoeditarLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productoeditarLabel">Editar Categoría</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulario -->
+                <form id="productoFormEdit" method="post">
+                    <input type="hidden" id="categoriaId" name="id">
+                    <div class="form-group">
+                        <label for="categoria">Nombre:</label>
+                        <input type="text" class="form-control" id="categoria" name="categoria" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Editar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- TERMINA APARTADO DE ADMIN -->
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $('#productoeditar').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var id = button.data('id');
+            var nombre = button.data('nombre'); // Obtener el valor del nombre de la categoría del botón
+
+            var modal = $(this);
+            var form = modal.find('#productoFormEdit');
+            form.attr('action', '{{ path("app_categoria_edit", {"id": "ID_REPLACE"}) }}'.replace('ID_REPLACE', id));
+            modal.find('#categoriaId').val(id);
+            modal.find('#categoria').val(nombre); // Establecer el valor del campo de entrada con el nombre de la categoría
+        });
+    </script>
+{% endblock %}

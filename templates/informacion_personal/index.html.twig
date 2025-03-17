@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{parent()}} - Información personal {% endblock %}
+
+{% block body %}
+{{parent()}}
+<!-- breadcrumb-section -->
+<div class="breadcrumb-section breadcrumb-bg">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 offset-lg-2 text-center">
+				<div class="breadcrumb-text">
+					<p>Tu datos</p>
+					<h1>Toda tu informacion personal</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end breadcrumb section -->
+
+
+{% if app.user %}
+    <!-- EMPIEZA APARTADO DE INFORMACION PERSONAL -->
+    <div class="container mt-5 mb-5">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="text-center">Información Personal</h2>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" action="{{ path('app_profile') }}" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="nombre">Nombre:</label>
+                                <input type="text" id="nombre" name="nombre" class="form-control" value="{{ app.user.nombre }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Correo electrónico:</label>
+                                <input type="email" id="email" name="email" class="form-control" value="{{ app.user.email }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="new_password">Nueva contraseña:</label>
+                                <input type="password" id="new_password" name="new_password" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="photo">Foto de perfil:</label>
+                                <input type="file" id="photo" name="photo" class="form-control-file">
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-block">Guardar cambios</button>
+                                <a href="{{path('app_perfil_usuario')}}" class="btn btn-danger btn-block">Regresar</a>
+                            </div>
+                        </form>
+                        {% for message in app.flashes('success') %}
+                            <div class="alert alert-success mt-3">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- TERMINA APARTADO DE INFORMACION PERSONAL -->
+{% else %}
+    <div class="container mt-5 mb-5">
+        <div class="alert alert-danger">
+            Debes iniciar sesión para ver esta página.
+        </div>
+    </div>
+{% endif %}
+{% endblock %}

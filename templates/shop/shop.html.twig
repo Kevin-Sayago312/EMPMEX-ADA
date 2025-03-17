@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{parent()}} - Tienda {% endblock %}
+
+{% block body %}
+	{{parent()}}
+	<!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>Biodegradable Y ECOLOGICO</p>
+						<h1>Tienda</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end breadcrumb section -->
+
+	<!-- EMPIEZA DE PAGINADOR -->
+<div class="product-section mt-5 mb-100">
+    <div class="container">
+        <!-- Mostrar productos paginados -->
+        <div class="row product-lists">
+            {% for producto in productos %}
+                <div class="col-lg-4 col-md-6 text-center strawberry">
+                    <div class="single-product-item">
+                        <div class="product-image">
+                            <a href="{{ path('app_producto') }}">
+                                <img src="{{ asset('uploads/files/' ~ producto.photo) }}" alt="{{ producto.nombre }}">
+                            </a>
+                        </div>
+                        <span>Categoria: {{ producto.categorias.categoria }}</span>
+                        <h3>{{ producto.nombre }}</h3>
+                        <p class="product-price"><span>{{ producto.descripcion }}</span> ${{ producto.precio }}</p>
+                        <!-- Añadir al carrito -->
+<a href="#" class="cart-btn add-to-cart" data-product-id="{{ producto.id }}" data-cantidad="1">
+    <i class="fas fa-shopping-cart"></i> Añadir al carrito
+</a>
+
+<!-- Formulario oculto -->
+<form id="add-to-cart-form" method="POST" action="{{ path('app_cart_add') }}" style="display: none;">
+    <input type="hidden" name="producto_id" id="add-to-cart-product-id">
+    <input type="hidden" name="cantidad" id="add-to-cart-cantidad">
+</form>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.add-to-cart').forEach(function (link) {
+        link.addEventListener('click', function (event) {
+            event.preventDefault();
+            var productId = this.dataset.productId;
+            var cantidad = this.dataset.cantidad;
+
+            var form = document.getElementById('add-to-cart-form');
+            document.getElementById('add-to-cart-product-id').value = productId;
+            document.getElementById('add-to-cart-cantidad').value = cantidad;
+            form.submit();
+        });
+    });
+});
+</script>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Paginación -->
+<div class="row">
+    <div class="col-lg-12 text-center">
+        <ul class="pagination justify-content-center">
+            {{ knp_pagination_render(productos) }}
+        </ul>
+    </div>
+</div>
+
+    </div>
+</div>
+<!-- FIN DE PAGINADOR -->
+
+
+
+
+
+
+{% endblock %}

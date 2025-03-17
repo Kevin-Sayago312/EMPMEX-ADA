@@ -1,0 +1,126 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %} {{parent()}} - Sorteo {% endblock %}
+
+{% block body %}
+{{parent()}}
+<!-- breadcrumb-section -->
+<div class="breadcrumb-section breadcrumb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="breadcrumb-text">
+                    <p>Administra el sorteo como desees</p>
+                    <h1>Sorteo</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end breadcrumb section -->
+
+<!-- EMPIEZA APARTADO DE ADMIN -->
+<div class="col-lg-10 mx-auto text-center mb-5">
+    <div class="container mt-4">
+        <div id="productos" class="mt-4">
+            <div class="row mt-4">
+                <div class="col">
+                <div class="container">
+                            <div class="row">
+                                <div class="col-12">
+                                    <a href="{{path('app_admin')}}" class="btn btn-primary btn-sm float-left mb-2"><i class="fas fa-arrow-left"></i> Regresar</a>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <div class="table-responsive text-center">
+                <table class="table table-bordered">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Imagen</th>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for sorteo in sorteos %}
+                            <tr>
+                                <td>
+                                    {% if sorteo.photo %}
+                                        <img src="{{ asset('uploads/files/' ~ sorteo.photo) }}" alt="{{ sorteo.nombre }}" style="max-width: 100px; max-height: 100px;">
+                                    {% else %}
+                                        No image
+                                    {% endif %}
+                                </td>
+                                <td>{{ sorteo.id }}</td>
+                                <td>{{ sorteo.nombre }}</td>
+                                <td>
+                                    
+                                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#sorteoeditar" data-id="{{ sorteo.id }}" data-nombre="{{ sorteo.nombre }}" data-photo="{{ sorteo.photo }}">Editar</button>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="7" class="text-center">No se encontraron sorteos</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<!-- Modal para editar producto -->
+<div class="modal fade" id="sorteoeditar" tabindex="-1" role="dialog" aria-labelledby="sorteoeditarLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="sorteoeditarLabel">Editar sorteo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulario -->
+                <form id="sorteoFormEdit" method="post" enctype="multipart/form-data">
+                    <input type="hidden" id="sorteoId" name="id">
+                    <div class="form-group">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="photo">Imagen del producto:</label>
+                        <input type="file" id="photo" name="photo" class="form-control-file">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Editar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TERMINA APARTADO DE ADMIN -->
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $('#sorteoeditar').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var id = button.data('id');
+            var nombre = button.data('nombre');
+            var photo = button.data('photo');
+
+            var modal = $(this);
+            var form = modal.find('#sorteoFormEdit');
+            form.attr('action', '{{ path("app_sorteo_edit", {"id": "ID_REPLACE"}) }}'.replace('ID_REPLACE', id));
+            modal.find('#sorteoId').val(id);
+            modal.find('#nombre').val(nombre);
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,212 @@
+{% extends 'base_admin.html.twig' %}
+{% block title %} {{ parent() }} - Administrador {% endblock %}
+
+{% block body %}
+{{ parent() }}
+<!-- breadcrumb-section -->
+<div class="breadcrumb-section breadcrumb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="breadcrumb-text">
+                    <p>Administra los productos que desees</p>
+                    <h1>Productos</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end breadcrumb section -->
+
+<!-- EMPIEZA APARTADO DE ADMIN -->
+<div class="col-lg-10 mx-auto text-center mb-5">
+    <div class="container mt-4">
+        <div id="productos" class="mt-4">
+            <div class="row mt-4">
+                <div class="col">
+                <div class="container">
+                            <div class="row">
+                                <div class="col-12">
+                                    <a href="{{path('app_admin')}}" class="btn btn-primary btn-sm float-left"><i class="fas fa-arrow-left"></i> Regresar</a>
+                                </div>
+                            </div>
+                        </div>
+                    <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#productoModal">Agregar Producto</button>
+                </div>
+            </div>
+            <div class="table-responsive text-center">
+                <table class="table table-bordered">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Imagen</th>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Precio</th>
+                            <th>Categoría</th>
+                            <th>Existencia</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for producto in productos %}
+                            <tr>
+                                <td>
+                                    {% if producto.photo %}
+                                        <img src="{{ asset('uploads/files/' ~ producto.photo) }}" alt="{{ producto.nombre }}" style="max-width: 100px; max-height: 100px;">
+                                    {% else %}
+                                        No image
+                                    {% endif %}
+                                </td>
+                                <td>{{ producto.id }}</td>
+                                <td>{{ producto.nombre }}</td>
+                                <td>{{ producto.descripcion }}</td>
+                                <td>${{ producto.precio }}</td>
+                                <td>{{ producto.categorias.categoria }}</td>
+                                <td>{{ producto.existencia }}</td>
+                                <td>
+                                    <form method="post" action="{{ path('app_producto_delete', {'id': producto.id}) }}" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este producto?');">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ producto.id) }}">
+                                        <button class="btn btn-danger btn-sm">Eliminar</button>
+                                    </form>
+                                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#productoeditar" data-id="{{ producto.id }}" data-nombre="{{ producto.nombre }}" data-descripcion="{{ producto.descripcion }}" data-precio="{{ producto.precio }}" data-existencia="{{ producto.existencia }}" data-categoria="{{ producto.categorias.id }}" data-photo="{{ producto.photo }}">Editar</button>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="7" class="text-center">No se encontraron productos</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<!-- Modal para agregar producto -->
+<div class="modal fade" id="productoModal" tabindex="-1" role="dialog" aria-labelledby="productoModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productoModalLabel">Agregar Nuevo Producto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulario -->
+                <form id="productoForm" action="{{ path('registrar_producto') }}" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcion">Descripción:</label>
+                        <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="precio">Precio:</label>
+                        <input type="text" class="form-control" id="precio" name="precio" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="existencia">Existencia:</label>
+                        <input type="number" class="form-control" id="existencia" name="existencia" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="categoria">Categoría:</label>
+                        <select class="form-control" id="categoria" name="categoria" required>
+                            {% for categoria in categorias %}
+                                <option value="{{ categoria.id }}">{{ categoria.categoria }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="photo">Imagen del producto:</label>
+                        <input type="file" id="photo" name="photo" class="form-control-file">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para editar producto -->
+<div class="modal fade" id="productoeditar" tabindex="-1" role="dialog" aria-labelledby="productoeditarLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productoeditarLabel">Editar Producto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulario -->
+                <form id="productoFormEdit" method="post" enctype="multipart/form-data">
+                    <input type="hidden" id="productoId" name="id">
+                    <div class="form-group">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcion">Descripción:</label>
+                        <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="precio">Precio:</label>
+                        <input type="text" class="form-control" id="precio" name="precio" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="existencia">Existencia:</label>
+                        <input type="number" class="form-control" id="existencia" name="existencia" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="categoria">Categoría:</label>
+                        <select class="form-control" id="categoria" name="categoria" required>
+                            {% for categoria in categorias %}
+                                <option value="{{ categoria.id }}">{{ categoria.categoria }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="photo">Imagen del producto:</label>
+                        <input type="file" id="photo" name="photo" class="form-control-file">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Editar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- TERMINA APARTADO DE ADMIN -->
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $('#productoeditar').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var id = button.data('id');
+            var nombre = button.data('nombre');
+            var descripcion = button.data('descripcion');
+            var precio = button.data('precio');
+            var existencia = button.data('existencia');
+            var categoria = button.data('categoria');
+            var photo = button.data('photo');
+
+            var modal = $(this);
+            var form = modal.find('#productoFormEdit');
+            form.attr('action', '{{ path("app_producto_edit", {"id": "ID_REPLACE"}) }}'.replace('ID_REPLACE', id));
+            modal.find('#productoId').val(id);
+            modal.find('#nombre').val(nombre);
+            modal.find('#descripcion').val(descripcion);
+            modal.find('#precio').val(precio);
+            modal.find('#existencia').val(existencia);
+            modal.find('#categoria').val(categoria);
+        });
+    </script>
+{% endblock %}
